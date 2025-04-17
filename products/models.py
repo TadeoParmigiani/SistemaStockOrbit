@@ -1,28 +1,17 @@
 from django.db import models
+from categories.models import Categoria 
 
-class Category(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-
-class Product(models.Model):
-    STATUS_CHOICES = [
-        ('active', 'Active'),
-        ('inactive', 'Inactive')
-    ]
-    
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    code = models.CharField(max_length=50, unique=True, blank=True, null=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    supplier_name = models.CharField(max_length=255, blank=True, null=True)
-    purchase_price = models.DecimalField(max_digits=10, decimal_places=2)
-    sale_price = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='active')
-    stock = models.IntegerField()
-    image = models.TextField(blank=True, null=True)
+class Producto(models.Model):
+    nombre = models.CharField(max_length=100)
+    descripcion = models.TextField()
+    codigo = models.CharField(max_length=50, unique=True)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='productos')
+    # proveedor = models.CharField(max_length=100)
+    precio_compra = models.DecimalField(max_digits=10, decimal_places=2)
+    precio_venta = models.DecimalField(max_digits=10, decimal_places=2)
+    estado = models.BooleanField(default=True)
+    stock_inicial = models.IntegerField()
+    imagen = models.ImageField(upload_to='productos/', null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.nombre} ({self.codigo})"

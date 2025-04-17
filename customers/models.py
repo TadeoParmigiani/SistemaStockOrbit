@@ -1,11 +1,11 @@
 from django.db import models
 
-class Customer(models.Model):
-    full_name = models.CharField(max_length=255)
-    dni_cuit = models.CharField(max_length=20)
-    phone = models.CharField(max_length=20, blank=True, null=True)
-    email = models.EmailField(max_length=100, blank=True, null=True)
-    address = models.TextField(blank=True, null=True)
+class Cliente(models.Model):
+    nombre = models.CharField(max_length=150) 
+    dni_cuit = models.CharField(max_length=20, null=True, blank=True)  
+    telefono = models.CharField(max_length=30, null=True, blank=True) 
+    correo_electronico = models.EmailField(null=True, blank=True)  
+    direccion = models.CharField(max_length=255, null=True, blank=True) 
 
     def __str__(self):
-        return self.full_name
+        return self.nombre

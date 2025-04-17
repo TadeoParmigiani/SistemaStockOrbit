@@ -35,9 +35,8 @@ def userList(request):
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
-from django.views.decorators.csrf import csrf_exempt
 
-@csrf_exempt  # Solo para pruebas, quita esta línea en producción
+
 def userCreate(request):
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
